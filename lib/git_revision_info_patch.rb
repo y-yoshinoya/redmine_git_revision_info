@@ -53,7 +53,8 @@ module GitMethodsGitBranch
   def format_changeset_identifier_for_revision(changeset)
     begin
       branch_name = changeset.repository.scm.name_rev(changeset.revision)
-      changeset.revision[0, 8] + " (#{branch_name})"
+      appendix = branch_name.present? ? " (#{branch_name})" : ""
+      changeset.revision[0, 8] + appendix
     rescue => e
       changeset.revision[0, 8]
     end
