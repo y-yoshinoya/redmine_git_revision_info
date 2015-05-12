@@ -2,7 +2,11 @@
 
 - Display git information (e.g. branch name) from git revision id in repository page.
 
-= Install
+== Screenshot
+
+![Screenshot](/screenshot.png?raw=true)
+
+== Install
 
 - Copy your plugin directory into #{RAILS_ROOT}/plugins.
 
@@ -10,7 +14,7 @@
 
 - Restart Redmine.
 
-= Uninstall
+== Uninstall
 
 - Remove the plugin from the plugins folder: #{RAILS_ROOT}/plugins
 - Restart Redmine.
