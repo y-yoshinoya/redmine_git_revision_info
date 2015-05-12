@@ -4,7 +4,7 @@
 
 == Screenshot
 
-![Screenshot](/screenshot.png?raw=true)
+![Screenshot](https://raw.githubusercontent.com/y-yoshinoya/redmine_git_revision_info/master/screenshot.png)
 
 == Install
 
