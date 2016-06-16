@@ -1,4 +1,4 @@
-= Redmine Git Revision Informaion plugin
+= Redmine Git Revision Information plugin
 
 - Display git information (e.g. branch name) from git revision id in repository page.
 
