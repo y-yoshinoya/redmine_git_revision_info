@@ -26,7 +26,7 @@ module RedmineGitRevisionInfo
         if params[:action] == "revision" && repository.is_a?(Repository::Git)
           s = repository.class.format_changeset_identifier(revision)
           branch_names = repository.scm.branch_contains(revision.revision)
-          s += " (#{branch_names.join(', ')})" if branch_names.present?
+          s += " (#{branch_names.first})" if branch_names.present?
           s
         else
           format_revision_without_git_branch(revision)
@@ -42,13 +42,13 @@ module RedmineGitRevisionInfo
 
     module InstanceMethods
       def branch_contains(id)
-        result = nil
+        result = []
         git_cmd(["branch", "--no-color", "--contains", id]) do |io|
           result = io.readlines.map{|line| line.gsub("*", "").strip}.reverse
         end
         result
       rescue ScmCommandAborted
-        nil
+        []
       end
     end
   end
