@@ -4,12 +4,6 @@ Rails.configuration.to_prepare do
   unless RepositoriesHelper.included_modules.include? RepositoriesHelperPatch
     RepositoriesHelper.send(:include, RepositoriesHelperPatch)
   end
-  unless Changeset.included_modules.include? ChangesetPatch
-    Changeset.send(:include, ChangesetPatch)
-  end
-  unless Repository::Git.included_modules.include? GitPatch
-    Repository::Git.send(:include, GitPatch)
-  end
 
   unless Redmine::Scm::Adapters::GitAdapter.included_modules.include? GitAdapterPatch
     Redmine::Scm::Adapters::GitAdapter.send(:include, GitAdapterPatch)
