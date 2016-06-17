@@ -14,8 +14,8 @@ module RepositoriesHelperPatch
       repository = revision.repository
       if params[:action] == "revision" && repository.is_a?(Repository::Git)
         s = repository.class.format_changeset_identifier(revision)
-        branch_name = repository.scm.name_rev(revision.revision)
-        s += " (#{branch_name})" if branch_name.present?
+        branch_names = repository.scm.branch_contains(revision.revision)
+        s += " (#{branch_names.join(', ')})" if branch_names.present?
       else
         format_revision_without_git_branch(revision)
       end
@@ -29,13 +29,12 @@ module GitAdapterPatch
   end
 
   module InstanceMethods
-    def name_rev(id)
-      branch_names = []
-      cmd_args = ["branch", "--no-color", "--contains", id]
-      git_cmd(cmd_args) do |io|
-        branch_names = io.readlines.map{|line| line.gsub("*", "").strip}
+    def branch_contains(id)
+      result = nil
+      git_cmd(["branch", "--no-color", "--contains", id]) do |io|
+        result = io.readlines.map{|line| line.gsub("*", "").strip}.reverse
       end
-      branch_names.include?("master") ? "master" : branch_names.first
+      result
     rescue ScmCommandAborted
       nil
     end
