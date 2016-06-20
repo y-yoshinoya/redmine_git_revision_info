@@ -22,7 +22,7 @@ module RedmineGitRevisionInfo
 
     module InstanceMethods
       def format_revision_with_git_branch(revision)
-        repository = revision.repository
+        repository = revision.try(:repository)
         if params[:action] == "revision" && repository.is_a?(Repository::Git)
           s = repository.class.format_changeset_identifier(revision)
           branch_names = repository.scm.branch_contains(revision.revision)
