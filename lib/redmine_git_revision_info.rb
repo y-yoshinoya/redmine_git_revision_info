@@ -47,7 +47,7 @@ module RedmineGitRevisionInfo
           result = io.readlines.map{|line| line.gsub("*", "").strip}.reverse
         end
         result
-      rescue ScmCommandAborted
+      rescue ::Redmine::Scm::Adapters::CommandFailed
         []
       end
     end
